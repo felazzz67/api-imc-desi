@@ -24,9 +24,26 @@ function calcularIMC(peso, altura) {
 app.get('/', (req, res) => {
   res.send('Hello World!')
 })
+<<<<<<< HEAD
+app.get('/paciente',async (req, res) => {
+  try {
+    const [rows]=await db.execute('select * from pacientes');
+    res.status(200).json(rows);
+  } catch (error) {
+    res.status(500).json({
+        mensagem:"Erro Interno do Servidor",
+        detalhes:error.message
+    });
+  }
+})
+app.get('/paciente/obesidade',async (req, res) => {
+  try {
+    const [rows] = await db.execute('SELECT * FROM pacientes WHERE status = "Obesidade";');
+=======
 app.get('/paciente', async (req, res) => {
   try {
     const [rows] = await db.execute('select * from pacientes');
+>>>>>>> 248c5261ff4e3522e44c771b356163abe672d6fd
     res.status(200).json(rows);
   } catch (error) {
     res.status(500).json({
@@ -49,6 +66,45 @@ app.get('/paciente/obesidade', async (req, res) => {
 app.get('/paciente/:id', async (req, res) => {
   const { id } = req.params;
 
+<<<<<<< HEAD
+app.get('/paciente/:id', async (req,res) => {
+  const {id} = req.params;
+    try {
+      const [rows]=await db.execute('select * from pacientes where id=?',[id]);
+      if(rows.length === 0){
+        return res.status(404).json({
+          mensagem:"Paciente não encontrado deixe de ser mula",
+          detalhes:error.message
+    })
+      }
+      res.status(200).json(rows[0]);
+    } catch (error) {
+      res.status(500).json({
+        mensagem:"Erro Interno do Servidor",
+        detalhes:error.message
+    });
+    }
+})
+app.delete('/paciente/:id', async (req,res) => {
+  const {id} = req.params;
+    try {
+      const [rows]=await db.execute('delete from pacientes where id=?',[id]);
+      if(rows.affectedRows === 0){
+        return res.status(404).json({
+          mensagem:"Paciente não encontrado deixe de ser mula",
+          detalhes:error.message
+    })
+      }
+      res.status(200).json({mensagem:"Paciente apagado com sucesso"});
+    } catch (error) {
+      res.status(500).json({
+        mensagem:"Erro Interno do Servidor",
+        detalhes:error.message
+    });
+    }
+})
+
+=======
   try {
     const [rows] = await db.execute('select * from pacientes where id=?', [id]);
     if (rows.length === 0) {
@@ -136,6 +192,7 @@ app.delete('/paciente/:id', async (req, res) => {
     });
   }
 })
+>>>>>>> 248c5261ff4e3522e44c771b356163abe672d6fd
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
